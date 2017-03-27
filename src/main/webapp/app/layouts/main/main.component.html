@@ -1,0 +1,26 @@
+<jhi-page-ribbon></jhi-page-ribbon>
+
+<div id="wrapper" [ngClass]="{'toggled': isSideBarOpen }">
+   
+    <jhi-sidebar [(isSideBarFIXED)]="sideBarFIXED"></jhi-sidebar>
+
+    <div>
+        <router-outlet name="navbar"></router-outlet>
+    </div>
+    <!-- Page Content -->
+    <div id="page-content-wrapper" (click)="closeSidebar()">
+        <div class="container-fluid">
+            <div class="card jh-card">
+                <router-outlet></router-outlet>
+                <router-outlet name="popup"></router-outlet>
+            </div>
+            <jhi-footer></jhi-footer>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+</div>
+<button (click)="isSideBarOpen = !isSideBarOpen;" style="position: fixed; left: 50px; top: 50px;">test</button>
+<!-- /#wrapper -->
+<div id="overlay" [ngClass]="{'toggled': isSideBarOpen }" (click)="closeSidebar()"></div>
+
+            
