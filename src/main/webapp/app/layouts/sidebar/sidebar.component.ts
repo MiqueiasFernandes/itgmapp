@@ -1,52 +1,57 @@
-import {Component, OnInit, Output, Input, EventEmitter} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
+import {EventManager} from 'ng-jhipster';
 
 import {Principal} from '../../shared';
 
 @Component({
     selector: 'jhi-sidebar',
     templateUrl: './sidebar.component.html',
-    styles: []
+    styles: [],
+//    providers: [SidebarService]
 })
 export class SidebarComponent implements OnInit {
 
+    isSidebarFixed = false;
 
-    sideBarFIXED: boolean;
+    nome = "";
+    email = "";
+    image = null;
 
-    constructor(private principal: Principal) {}
+
+    constructor(
+        private principal: Principal,
+        private eventManager: EventManager
+    ) {}
 
     ngOnInit() {
+        this.principal.identity().then((account) => {
+            this.nome = account.firstName + " " + account.lastName;
+            this.email = account.email;
+            this.image = account.imageUrl;
+        });
+        this.registerAuthenticationSuccess();
     }
 
-    isUserAuthenticated() {
-        //      return false;
-        return this.principal.isAuthenticated();
-        //      && this.principal.hasAuthority("'ROLE_ADMIN'");
-        ///&& !this.principal.hasAnyAuthority(['ROLE_ADMIN']);
+    registerAuthenticationSuccess() {
+        this.eventManager.subscribe('authenticationSuccess', (message) => {
+            this.principal.identity().then((account) => {
+                this.nome = account.firstName + " " + account.lastName;
+                this.email = account.email;
+                this.image = account.imageUrl;
+            });
+        });
     }
 
-    @Output() toogleSidebar = new EventEmitter();
+ 
+isUserAuthenticated(){
+    return true;
+}
 
-    @Input()
-    get isSideBarFIXED() {
-        return this.sideBarFIXED;
+
+    blockSideBar() {
+        this.isSidebarFixed = !this.isSidebarFixed;
     }
-
-    set isSideBarFIXED(val) {
-        this.sideBarFIXED = val;
-        this.toogleSidebar.emit(this.sideBarFIXED);
-    }
-
-    fixSidebar(event) {
-        this.isSideBarFIXED = !this.isSideBarFIXED;
-        console.log("fix: " + event + " " + this.isSideBarFIXED);
-    }
-
-
-    //
-    //
-    //    close() {
-    //        console.log('mikeias: close ' + this.sideBarOpen);
-    //        this.isSideBarOpen = false;
-    //    }
 
 }
+

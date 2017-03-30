@@ -1,31 +1,60 @@
-<div id="sidebar-wrapper" [ngSwitch]="isUserAuthenticated()">
-    TITLE
-    <ul class="sidebar-nav"  *ngSwitchCase="true">
-        <li class="sidebar-brand">
-            <a href="#">
-                        Start Bootstrap
-                    </a>
-        </li>
-        <li >
-            <a href="#">Dashboard</a>
-        </li>
-        <li>
-            <a href="#">Shortcuts</a>
-        </li>
-        <li>
-            <a href="#">Overview</a>
-        </li>
-        <li>
-            <a href="#">Events</a>
-        </li>
-        <li>
-            <a href="#">About</a>
-        </li>
-        <li>
-            <a href="#">Services</a>
-        </li>
-        <li>
-            <input type="checkbox" (change)="fixSidebar($event)">travar
-        </li>
-    </ul>
+<div class="sidebar" [ngSwitch]="isUserAuthenticated()">
+
+    <div class="user-info">
+        <div class="image" *ngIf="image">
+            <img [src]="image"  alt="{{nome}}" width="48" height="48">
+        </div>
+        <div class="info-container">
+            <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{nome}}
+            </div>
+            <div class="email">{{email}}</div>
+            <div class="fixSidebar" (click)="blockSideBar($event)">
+                <i [ngClass]="{'fa' : true,  'fa-lock' : isSidebarFixed , 'fa-unlock-alt' : !isSidebarFixed}" aria-hidden="true">
+            </i>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu">
+
+        <ul class="list" *ngSwitchCase="true">
+            <li class="header">
+                Start Bootstrap  <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+            </li>
+            <li  class="active nivel1" data-toggle="collapse" data-target="#modelos">
+                Modelos
+                <ul class="list active" id="modelos">
+                    <li>
+                        Modelo 1
+                    </li>
+                    <li>
+                        Modelo 2
+                    </li>
+                    <li>
+                        Modelo 3
+                    </li>
+                    <li>
+                        Modelo 4
+                    </li>
+                </ul>
+            </li>
+            <li class="nivel1">
+                Shortcuts
+            </li>
+            <li  class="nivel1">
+                Overvie
+            </li>
+            <li  class="nivel1">
+                Events
+            </li>
+            <li  class="nivel1">
+                About
+            </li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        (C) UFES
+    </div>
 </div>
