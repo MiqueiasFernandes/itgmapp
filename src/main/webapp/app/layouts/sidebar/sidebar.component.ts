@@ -1,57 +1,78 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, Input, EventEmitter} from '@angular/core';
 
 import {EventManager} from 'ng-jhipster';
 
-import {Principal} from '../../shared';
+import {Account, Principal} from '../../shared';
+
+import {SidebarService} from '../sidebar/sidebar.service';
 
 @Component({
     selector: 'jhi-sidebar',
     templateUrl: './sidebar.component.html',
-    styles: [],
-//    providers: [SidebarService]
+    styles: []
 })
 export class SidebarComponent implements OnInit {
 
     isSidebarFixed = false;
-
     nome = "";
     email = "";
     image = null;
 
-
     constructor(
         private principal: Principal,
-        private eventManager: EventManager
-    ) {}
+        private eventManager: EventManager,
+        private sidebarService: SidebarService
+    ) {
+        sidebarService.lockedObserver$.subscribe((lock: boolean) => {
+            this.isSidebarFixed = lock
+            console.log("evento acionado")
+        });
+    }
 
     ngOnInit() {
-        this.principal.identity().then((account) => {
-            this.nome = account.firstName + " " + account.lastName;
-            this.email = account.email;
-            this.image = account.imageUrl;
+        this.principal.identity().then((account: Account) => {
+            this.getDados(account);
         });
         this.registerAuthenticationSuccess();
+        this.openSidebar();
     }
 
     registerAuthenticationSuccess() {
         this.eventManager.subscribe('authenticationSuccess', (message) => {
-            this.principal.identity().then((account) => {
-                this.nome = account.firstName + " " + account.lastName;
-                this.email = account.email;
-                this.image = account.imageUrl;
+            this.principal.identity().then((account: Account) => {
+                this.getDados(account);
+                this.openSidebar();
             });
         });
     }
 
- 
-isUserAuthenticated(){
-    return true;
-}
+    getDados(account: Account) {
+        if (!account)
+            this.closeSidebar();
+        else {
+            this.nome = account.firstName + " " + account.lastName;
+            this.email = account.email;
+            this.image = account.imageUrl;
+        }
+    }
 
 
-    blockSideBar() {
-        this.isSidebarFixed = !this.isSidebarFixed;
+    toogleBlockSideBar() {
+        this.sidebarService.toogleSidebarFixed();
+        if (!this.sidebarService.isLock())
+            this.closeSidebar();
+    }
+
+    openSidebar() {
+        this.sidebarService.openSidebar();
+    }
+
+    closeSidebar() {
+        this.sidebarService.closeSidebar();
+    }
+    
+    isUserAuthenticated(){
+        return this.principal.isAuthenticated();
     }
 
 }
-

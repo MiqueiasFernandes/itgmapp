@@ -41,7 +41,9 @@
             "confirmpassword": "Confirmação de nova senha",
             "confirmpassword.placeholder": "Confirme a nova senha",
             "email": "E-mail",
-            "email.placeholder": "Seu e-mail"
+            "email.placeholder": "Seu e-mail",
+            "image": "Foto de perfil",
+            "image.placeholder": "Escolha uma imagem."
         },
         "messages": {
             "info": {

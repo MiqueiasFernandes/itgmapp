@@ -1,8 +1,10 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRouteSnapshot, NavigationEnd, RoutesRecognized} from '@angular/router';
 import {EventManager} from 'ng-jhipster';
-import {JhiLanguageHelper, StateStorageService, Principal} from '../../shared';
+import {JhiLanguageHelper, StateStorageService} from '../../shared';
 
+
+import {SidebarService} from '../sidebar/sidebar.service';
 
 @Component({
     selector: 'jhi-main',
@@ -10,27 +12,28 @@ import {JhiLanguageHelper, StateStorageService, Principal} from '../../shared';
 })
 export class JhiMainComponent implements OnInit {
 
-
     isSideBarOpen: Boolean = false;
-    sideBarFIXED: Boolean = false;
-
-    openSidebar() {
-        this.isSideBarOpen = !this.isSideBarOpen && this.principal.isAuthenticated();
-    }
-    closeSidebar() {
-        console.log("sid: " + this.sideBarFIXED);
-        this.isSideBarOpen = (this.isSideBarOpen && !this.sideBarFIXED) ? false : this.isSideBarOpen;
-    }
-
-
 
     constructor(
         private jhiLanguageHelper: JhiLanguageHelper,
         private router: Router,
         private $storageService: StateStorageService,
-        private principal: Principal,
-        private eventManager: EventManager
-    ) {}
+        private sidebarService: SidebarService
+    ) {
+
+        sidebarService.sidebarObserver$.subscribe((open: boolean) => {
+            this.isSideBarOpen = open;
+        });
+
+    }
+
+    openSidebar() {
+        this.sidebarService.openSidebar();
+    }
+
+    closeSidebar() {
+        this.sidebarService.closeSidebar();
+    }
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
         let title: string = (routeSnapshot.data && routeSnapshot.data['pageTitle']) ? routeSnapshot.data['pageTitle'] : 'itgmappApp';
@@ -59,13 +62,6 @@ export class JhiMainComponent implements OnInit {
                 let destination = {name: destinationName, data: destinationData};
                 this.$storageService.storeDestinationState(destination, params, from);
             }
-        });
-        this.registerAuthenticationSuccess();
-    }
-
-    registerAuthenticationSuccess() {
-        this.eventManager.subscribe('authenticationSuccess', (message) => {
-            this.openSidebar();
         });
     }
 }

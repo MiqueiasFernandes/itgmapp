@@ -1,4 +1,4 @@
-<div class="sidebar" [ngSwitch]="isUserAuthenticated()">
+<div class="sidebar" *ngIf="isUserAuthenticated()">
 
     <div class="user-info">
         <div class="image" *ngIf="image">
@@ -9,7 +9,7 @@
             {{nome}}
             </div>
             <div class="email">{{email}}</div>
-            <div class="fixSidebar" (click)="blockSideBar($event)">
+            <div class="fixSidebar" (click)="toogleBlockSideBar()">
                 <i [ngClass]="{'fa' : true,  'fa-lock' : isSidebarFixed , 'fa-unlock-alt' : !isSidebarFixed}" aria-hidden="true">
             </i>
             </div>
@@ -18,7 +18,7 @@
 
     <div class="menu">
 
-        <ul class="list" *ngSwitchCase="true">
+        <ul class="list">
             <li class="header">
                 Start Bootstrap  <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
             </li>

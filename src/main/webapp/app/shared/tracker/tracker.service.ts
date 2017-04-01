@@ -1,9 +1,9 @@
-import { Injectable, Inject } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { Observable, Observer, Subscription } from 'rxjs/Rx';
+import {Injectable, Inject} from '@angular/core';
+import {Router, NavigationEnd} from '@angular/router';
+import {Observable, Observer, Subscription} from 'rxjs/Rx';
 
-import { CSRFService } from '../auth/csrf.service';
-import { AuthServerProvider } from '../auth/auth-oauth2.service';
+import {CSRFService} from '../auth/csrf.service';
+import {AuthServerProvider} from '../auth/auth-oauth2.service';
 
 import SockJS = require('sockjs-client');
 import Stomp = require('webstomp-client');
@@ -30,9 +30,9 @@ export class JhiTrackerService {
         this.listener = this.createListener();
     }
 
-    connect () {
+    connect() {
         if (this.connectedPromise === null) {
-          this.connection = this.createConnection();
+            this.connection = this.createConnection();
         }
         // building absolute path so that websocket doesn't fail when deploying with a context path
         const loc = this.$window.location;
@@ -45,21 +45,26 @@ export class JhiTrackerService {
         this.stompClient = Stomp.over(socket);
         let headers = {};
         this.stompClient.connect(headers, () => {
-            this.connectedPromise('success');
+            if (this.connectedPromise) {
+                this.connectedPromise('success');
+            }
+            else {
+                throw "impossivel conectar em websockets... webapp/app/shared/tracker/tracker.service.ts:50";
+            }
             this.connectedPromise = null;
             this.sendActivity();
             if (!this.alreadyConnectedOnce) {
                 this.subscription = this.router.events.subscribe((event) => {
-                  if (event instanceof NavigationEnd) {
-                    this.sendActivity();
-                  }
+                    if (event instanceof NavigationEnd) {
+                        this.sendActivity();
+                    }
                 });
                 this.alreadyConnectedOnce = true;
             }
         });
     }
 
-    disconnect () {
+    disconnect() {
         if (this.stompClient !== null) {
             this.stompClient.disconnect();
             this.stompClient = null;
@@ -71,7 +76,7 @@ export class JhiTrackerService {
         this.alreadyConnectedOnce = false;
     }
 
-    receive () {
+    receive() {
         return this.listener;
     }
 
@@ -85,7 +90,7 @@ export class JhiTrackerService {
         }
     }
 
-    subscribe () {
+    subscribe() {
         this.connection.then(() => {
             this.subscriber = this.stompClient.subscribe('/topic/tracker', data => {
                 this.listenerObserver.next(JSON.parse(data.body));
@@ -93,7 +98,7 @@ export class JhiTrackerService {
         });
     }
 
-    unsubscribe () {
+    unsubscribe() {
         if (this.subscriber !== null) {
             this.subscriber.unsubscribe();
         }
@@ -107,6 +112,6 @@ export class JhiTrackerService {
     }
 
     private createConnection(): Promise<any> {
-        return new Promise((resolve, reject) => this.connectedPromise = resolve);
+        return new Promise((resolve, reject) => {this.connectedPromise = resolve});
     }
 }

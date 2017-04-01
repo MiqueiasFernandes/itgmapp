@@ -21,11 +21,11 @@
                             Your first name is required.
                         </small>
                         <small class="form-text text-danger"
-                           *ngIf="firstNameInput.errors.minlength" jhiTranslate="settings.messages.validate.firstname.minlength">
+                               *ngIf="firstNameInput.errors.minlength" jhiTranslate="settings.messages.validate.firstname.minlength">
                             Your first name is required to be at least 1 character.
                         </small>
                         <small class="form-text text-danger"
-                           *ngIf="firstNameInput.errors.maxlength" jhiTranslate="settings.messages.validate.firstname.maxlength">
+                               *ngIf="firstNameInput.errors.maxlength" jhiTranslate="settings.messages.validate.firstname.maxlength">
                             Your first name cannot be longer than 50 characters.
                         </small>
                     </div>
@@ -40,11 +40,11 @@
                             Your last name is required.
                         </small>
                         <small class="form-text text-danger"
-                           *ngIf="lastNameInput.errors.minlength" jhiTranslate="settings.messages.validate.lastname.minlength">
+                               *ngIf="lastNameInput.errors.minlength" jhiTranslate="settings.messages.validate.lastname.minlength">
                             Your last name is required to be at least 1 character.
                         </small>
                         <small class="form-text text-danger"
-                           *ngIf="lastNameInput.errors.maxlength" jhiTranslate="settings.messages.validate.lastname.maxlength">
+                               *ngIf="lastNameInput.errors.maxlength" jhiTranslate="settings.messages.validate.lastname.maxlength">
                             Your last name cannot be longer than 50 characters.
                         </small>
                     </div>
@@ -59,22 +59,22 @@
                             Your e-mail is required.
                         </small>
                         <small class="form-text text-danger"
-                           *ngIf="emailInput.errors.email" jhiTranslate="global.messages.validate.email.invalid">
+                               *ngIf="emailInput.errors.email" jhiTranslate="global.messages.validate.email.invalid">
                             Your e-mail is invalid.
                         </small>
                         <small class="form-text text-danger"
-                           *ngIf="emailInput.errors.minlength" jhiTranslate="global.messages.validate.email.minlength">
+                               *ngIf="emailInput.errors.minlength" jhiTranslate="global.messages.validate.email.minlength">
                             Your e-mail is required to be at least 5 characters.
                         </small>
                         <small class="form-text text-danger"
-                           *ngIf="emailInput.errors.maxlength" jhiTranslate="global.messages.validate.email.maxlength">
+                               *ngIf="emailInput.errors.maxlength" jhiTranslate="global.messages.validate.email.maxlength">
                             Your e-mail cannot be longer than 100 characters.
                         </small>
                     </div>
                 </div>
- <div class="form-group">
+                <div class="form-group">
                     <label class="form-control-label" for="image" jhiTranslate="global.form.image">Imagem</label>
-                    <input type="file" class="form-control" id="image"  placeholder="{{'global.form.imageChoose' | translate}}">
+                    <input type="file" class="form-control" id="image"  placeholder="{{'global.form.image.placeholder' | translate}}">
                     <input type="text" [(ngModel)]="settingsAccount.imageUrl"  name="imageUrl"/>
                 </div>
                 <div class="form-group" *ngIf="languages && languages.length > 0">

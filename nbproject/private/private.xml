@@ -3,21 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/mfernandes/itgmapp/src/main/webapp/app/shared/sidebar/sidebar.service.ts</file>
-            <file>file:/home/mfernandes/itgmapp/src/main/webapp/app/layouts/navbar/navbar.component.html</file>
-            <file>file:/home/mfernandes/itgmapp/src/main/webapp/app/account/settings/settings.component.ts</file>
             <file>file:/home/mfernandes/itgmapp/src/main/webapp/app/layouts/sidebar/sidebar.component.html</file>
-            <file>file:/home/mfernandes/itgmapp/src/main/java/com/itgmapp/web/rest/AccountResource.java</file>
-            <file>file:/home/mfernandes/itgmapp/src/main/webapp/app/shared/shared.module.ts</file>
-            <file>file:/home/mfernandes/itgmapp/src/main/webapp/app/layouts/main/main.component.ts</file>
-            <file>file:/home/mfernandes/itgmapp/src/main/java/com/itgmapp/service/UserService.java</file>
-            <file>file:/home/mfernandes/itgmapp/src/main/webapp/app/layouts/navbar/navbar.component.ts</file>
-            <file>file:/home/mfernandes/itgmapp/src/main/webapp/content/scss/global.scss</file>
-            <file>file:/home/mfernandes/itgmapp/src/main/webapp/app/shared/index.ts</file>
-            <file>file:/home/mfernandes/itgmapp/src/main/java/com/itgmapp/web/rest/UserResource.java</file>
-            <file>file:/home/mfernandes/itgmapp/src/main/webapp/app/layouts/main/main.component.html</file>
             <file>file:/home/mfernandes/itgmapp/src/main/webapp/app/layouts/sidebar/sidebar.component.ts</file>
-            <file>file:/home/mfernandes/itgmapp/src/main/webapp/app/account/settings/settings.component.html</file>
+            <file>file:/home/mfernandes/itgmapp/src/main/webapp/app/shared/tracker/tracker.service.ts</file>
         </group>
     </open-files>
 </project-private>

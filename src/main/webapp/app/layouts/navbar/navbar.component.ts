@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {JhiLanguageService} from 'ng-jhipster';
@@ -7,6 +7,9 @@ import {ProfileService} from '../profiles/profile.service'; // FIXME barrel does
 import {JhiLanguageHelper, Principal, LoginModalService, LoginService} from '../../shared';
 
 import {VERSION, DEBUG_INFO_ENABLED} from '../../app.constants';
+
+
+import {SidebarService} from '../sidebar/sidebar.service';
 
 @Component({
     selector: 'jhi-navbar',
@@ -17,7 +20,6 @@ import {VERSION, DEBUG_INFO_ENABLED} from '../../app.constants';
 })
 export class NavbarComponent implements OnInit {
 
-    sideBarOpen: boolean;
     inProduction: boolean;
     isNavbarCollapsed: boolean;
     languages: any[];
@@ -32,7 +34,8 @@ export class NavbarComponent implements OnInit {
         private principal: Principal,
         private loginModalService: LoginModalService,
         private profileService: ProfileService,
-        private router: Router
+        private router: Router,
+        private sidebarService: SidebarService
     ) {
         this.version = DEBUG_INFO_ENABLED ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
@@ -70,6 +73,7 @@ export class NavbarComponent implements OnInit {
         this.collapseNavbar();
         this.loginService.logout();
         this.router.navigate(['']);
+        this.sidebarService.closeSidebar(true);
     }
 
     toggleNavbar() {
@@ -81,22 +85,7 @@ export class NavbarComponent implements OnInit {
     }
 
 
-
-    @Output() toogleSidebar = new EventEmitter();
-
-    @Input()
-    get isSideBarOpen() {
-        return this.sideBarOpen;
-    }
-
-    set isSideBarOpen(val) {
-        this.sideBarOpen = val;
-        this.toogleSidebar.emit(this.sideBarOpen);
-    }
-
-
-    openSidebar() {
-        console.log('mikeias: abrir ' + this.sideBarOpen);
-        this.isSideBarOpen = !this.isSideBarOpen;
+    toogleSidebar() {
+        this.sidebarService.toogleSidebar();
     }
 }

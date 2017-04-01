@@ -1,6 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
+
+
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import {
     ItgmappSharedLibsModule,
@@ -16,7 +18,7 @@ import {
     Principal,
     JhiTrackerService,
     HasAnyAuthorityDirective,
-    JhiLoginModalComponent
+    JhiLoginModalComponent,
 } from './';
 
 @NgModule({
@@ -40,7 +42,9 @@ import {
         AuthServerProvider,
         AuthService,
         UserService,
-        DatePipe
+        DatePipe,
+//       { provide: SidebarService, useClass: SidebarService},
+//        { provide: SideService, useClass: SideService}
     ],
     entryComponents: [JhiLoginModalComponent],
     exports: [

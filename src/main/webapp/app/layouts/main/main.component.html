@@ -1,8 +1,8 @@
 <jhi-page-ribbon></jhi-page-ribbon>
 
 <div id="wrapper" [ngClass]="{'toggled': isSideBarOpen }">
-   
-    <jhi-sidebar></jhi-sidebar>
+
+     <jhi-sidebar></jhi-sidebar>
 
     <div>
         <router-outlet name="navbar"></router-outlet>
@@ -19,8 +19,7 @@
     </div>
     <!-- /#page-content-wrapper -->
 </div>
-<button (click)="isSideBarOpen = !isSideBarOpen;" style="position: fixed; left: 50px; top: 50px;">test</button>
 <!-- /#wrapper -->
 <div id="overlay" [ngClass]="{'toggled': isSideBarOpen }" (click)="closeSidebar()"></div>
 
-            
+

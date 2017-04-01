@@ -18,6 +18,7 @@ import {
     JhiMainComponent,
     NavbarComponent,
     SidebarComponent,
+    SidebarService,
     FooterComponent,
     ProfileService,
     PageRibbonComponent,
@@ -48,6 +49,7 @@ import {
     ],
     providers: [
         ProfileService,
+        SidebarService,
         { provide: Window, useValue: window },
         { provide: Document, useValue: document },
         customHttpProvider(),
