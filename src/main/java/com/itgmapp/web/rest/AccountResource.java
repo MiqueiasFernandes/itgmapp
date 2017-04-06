@@ -11,7 +11,6 @@ import com.itgmapp.service.dto.UserDTO;
 import com.itgmapp.web.rest.vm.KeyAndPasswordVM;
 import com.itgmapp.web.rest.vm.ManagedUserVM;
 import com.itgmapp.web.rest.util.HeaderUtil;
-import java.io.InputStream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -26,21 +25,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itgmapp.service.jriaccess.Itgmrest;
-import java.io.ByteArrayInputStream;
-import java.io.StringReader;
-import java.nio.charset.StandardCharsets;
-
-
-import java.nio.file.Files;
-
 
 /**
  * REST controller for managing the current user's account.
@@ -229,23 +219,19 @@ public class AccountResource {
                 && password.length() <= ManagedUserVM.PASSWORD_MAX_LENGTH;
     }
 
-
     @PostMapping("/account/image")
-    public ResponseEntity<String> handleFileUpload(
-        @RequestParam("user") String user,
-        @RequestParam("file") MultipartFile file) {
-ResponseEntity re;
-        System.out.println("#####################################################################message"
-                + "You successfully uploaded: " + file.getOriginalFilename() + "!");
-        System.out.println("#####################################################################a enviar");
-       //// Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
-        if(Itgmrest.sendFile(user + "/*/*/*/foto" + Itgmrest.getFileExt(file.getOriginalFilename()), "data/", (file))) /////Itgmrest.convert
-            re = new ResponseEntity("imagem.jpg", HttpStatus.OK);
-        else
-            re = new ResponseEntity("", HttpStatus.BAD_REQUEST);
-        System.out.println("#####################################################################enviado");
-        // return new ResponseEntity("imagem.jpg", HttpStatus.OK);
-        return re;
+    public ResponseEntity<String> imageUpload(
+            @RequestParam("file") MultipartFile file) {
+        User user = userService.getUserWithAuthorities();
+        String codName = Itgmrest.getCodNome(user);
+        String fileN = "foto" + Itgmrest.getFileExt(file.getOriginalFilename());
+        String dir = "data/";
+        String res = "";
+        if (!Itgmrest.sendFile(codName + "/*/*/*/" + fileN, dir, (file))
+                || ((res = Itgmrest.publicFile(codName, "*", "*", "*", dir, fileN)) == null)) {
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<String>("{\"image\":\"http://" + Itgmrest.getIP() + ":8099/temp/" + res + "\"}", HttpStatus.OK);
     }
 
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, Input, EventEmitter} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {EventManager} from 'ng-jhipster';
 
@@ -24,8 +24,7 @@ export class SidebarComponent implements OnInit {
         private sidebarService: SidebarService
     ) {
         sidebarService.lockedObserver$.subscribe((lock: boolean) => {
-            this.isSidebarFixed = lock
-            console.log("evento acionado")
+            this.isSidebarFixed = lock;
         });
     }
 
@@ -35,6 +34,9 @@ export class SidebarComponent implements OnInit {
         });
         this.registerAuthenticationSuccess();
         this.openSidebar();
+        this.principal.getAuthenticationState().subscribe(account => {
+            this.getDados(account);
+        });
     }
 
     registerAuthenticationSuccess() {
@@ -70,8 +72,8 @@ export class SidebarComponent implements OnInit {
     closeSidebar() {
         this.sidebarService.closeSidebar();
     }
-    
-    isUserAuthenticated(){
+
+    isUserAuthenticated() {
         return this.principal.isAuthenticated();
     }
 

@@ -74,8 +74,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="image" jhiTranslate="global.form.image">Imagem</label>
-                    <input (change)="setFile($event)" type="file" class="form-control" id="image"  placeholder="{{'global.form.image.placeholder' | translate}}">
-                    <input type="text" [(ngModel)]="settingsAccount.imageUrl"  name="imageUrl"/>
+                    <input [ngClass]="{visivel: !onLoad, invisivel: onLoad}" (change)="setFile($event)" type="file" class="form-control" id="image"  placeholder="{{'global.form.image.placeholder' | translate}}">
+                    <img src="../../../content/images/load.gif" alt="carregando..." [ngClass]="{visivel: onLoad, invisivel: !onLoad}">
                 </div>
                 <div class="form-group" *ngIf="languages && languages.length > 0">
                     <label for="langKey" jhiTranslate="settings.form.language">Language</label>
@@ -83,7 +83,7 @@
                         <option *ngFor="let language of languages" [value]="language">{{language | findLanguageFromKey}}</option>
                     </select>
                 </div>
-                <button type="submit" [disabled]="settingsForm.form.invalid" class="btn btn-primary" jhiTranslate="settings.form.button">Save</button>
+                <button type="submit" [disabled]="settingsForm.form.invalid || onLoad" class="btn btn-primary" jhiTranslate="settings.form.button">Save</button>
             </form>
         </div>
     </div>

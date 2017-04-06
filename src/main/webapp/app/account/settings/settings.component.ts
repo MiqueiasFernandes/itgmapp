@@ -5,7 +5,10 @@ import {Principal, AccountService, JhiLanguageHelper} from '../../shared';
 
 @Component({
     selector: 'jhi-settings',
-    templateUrl: './settings.component.html'
+    templateUrl: './settings.component.html',
+    styleUrls: [
+        'settings.scss'
+    ]
 })
 export class SettingsComponent implements OnInit {
     error: string;
@@ -13,6 +16,7 @@ export class SettingsComponent implements OnInit {
     settingsAccount: any;
     languages: any[];
     file: any;
+    onLoad = false;
 
     constructor(
         private account: AccountService,
@@ -48,10 +52,6 @@ export class SettingsComponent implements OnInit {
             this.success = null;
             this.error = 'ERROR';
         });
-
-        this.account.sendImage(this.file).subscribe(res => {
-            console.log("mensagem recebida: " + res);
-        });
     }
 
     copyAccount(account) {
@@ -68,5 +68,16 @@ export class SettingsComponent implements OnInit {
 
     setFile($event) {
         this.file = $event.target.files[0];
+        this.account.sendImage(this.file)
+            .map(res => res.json())
+            .subscribe(
+            response => {
+                this.settingsAccount.imageUrl = response.image;
+                this.onLoad = false;
+            },
+            error =>{
+                this.onLoad = false;
+            });
+             this.onLoad = true;
     }
 }

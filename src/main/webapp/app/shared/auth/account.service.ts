@@ -15,16 +15,11 @@ export class AccountService {
     }
 
     sendImage(image: File): Observable<Response> {
-
-        console.log("enviando imagem.... ");
         const formData = new FormData();
         formData.append('file', image);
-        formData.append('user', "mikeiasFernandes");
         const headers = new Headers({});
         let options = new RequestOptions({headers});
         let url = 'api/account/image';
-        console.log("imagem enviada.... ");
         return this.http.post(url, formData, options);
-
     }
 }
