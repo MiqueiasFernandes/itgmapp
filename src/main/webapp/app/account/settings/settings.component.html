@@ -74,7 +74,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="image" jhiTranslate="global.form.image">Imagem</label>
-                    <input type="file" class="form-control" id="image"  placeholder="{{'global.form.image.placeholder' | translate}}">
+                    <input (change)="setFile($event)" type="file" class="form-control" id="image"  placeholder="{{'global.form.image.placeholder' | translate}}">
                     <input type="text" [(ngModel)]="settingsAccount.imageUrl"  name="imageUrl"/>
                 </div>
                 <div class="form-group" *ngIf="languages && languages.length > 0">

@@ -23,6 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.ZonedDateTime;
 import java.util.*;
 
+
+import com.itgmapp.service.jriaccess.Itgmrest;
+
 /**
  * Service class for managing users.
  */
@@ -108,6 +111,7 @@ public class UserService {
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
+        Itgmrest.createUser(newUser);
         return newUser;
     }
 
@@ -147,6 +151,7 @@ public class UserService {
      * @param lastName last name of user
      * @param email email id of user
      * @param langKey language key
+     * @param imgURL url of avatar user
      */
     public void updateUser(String firstName, String lastName, String email, String langKey, String imgURL) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(user -> {
