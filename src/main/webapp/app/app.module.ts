@@ -19,6 +19,8 @@ import {
     NavbarComponent,
     SidebarComponent,
     SidebarService,
+    FabAddModalService,
+    FabAddComponent,
     FooterComponent,
     ProfileService,
     PageRibbonComponent,
@@ -45,11 +47,13 @@ import {
         PageRibbonComponent,
         ActiveMenuDirective,
         FooterComponent,
-        SidebarComponent
+        SidebarComponent,
+        FabAddComponent
     ],
     providers: [
         ProfileService,
         SidebarService,
+        FabAddModalService,
         { provide: Window, useValue: window },
         { provide: Document, useValue: document },
         customHttpProvider(),

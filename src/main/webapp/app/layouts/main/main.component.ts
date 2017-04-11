@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRouteSnapshot, NavigationEnd, RoutesRecognized} from '@angular/router';
-import {EventManager} from 'ng-jhipster';
 import {JhiLanguageHelper, StateStorageService} from '../../shared';
 
 

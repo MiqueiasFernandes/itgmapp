@@ -1,3 +1,7 @@
+
+
+
+
 <jhi-page-ribbon></jhi-page-ribbon>
 
 <div id="wrapper" [ngClass]="{'toggled': isSideBarOpen }">
@@ -18,8 +22,10 @@
         </div>
     </div>
     <!-- /#page-content-wrapper -->
+    <jhi-fab-add></jhi-fab-add>
 </div>
 <!-- /#wrapper -->
+
 <div id="overlay" [ngClass]="{'toggled': isSideBarOpen }" (click)="closeSidebar()"></div>
 
 
